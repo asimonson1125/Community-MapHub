@@ -1,0 +1,251 @@
+/* https://stackoverflow.com/questions/12989916/using-scss-with-flask */
+:root {
+  --csh-primary: #B0197E;
+  --csh-secondary: #E11C52;
+  --csh-tertiary: #340526;
+  --bg: #25021A;
+  --fg: #FFFFFF;
+}
+
+html {
+  background: var(--bg1);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  background: var(--bg);
+  color: var(--fg);
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 0;
+  font-family: Rubik, Roboto, sans-serif;
+  font-size: calc(10pt + 1vmin);
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  font-size: 1em;
+  font-weight: 400;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: 0.9em;
+  font-family: "Rubik Medium", Rubik, Roboto, sans-serif;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+li {
+  font-size: 0.7em;
+  font-family: "Rubik Medium", Rubik, Roboto, sans-serif;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.spaced-h3 {
+  margin-top: 1em;
+}
+
+h3 {
+  font-size: 0.75em;
+}
+
+p {
+  font-weight: 300;
+  font-size: 0.75em;
+  line-height: 1.4;
+  color: #D9B8CE;
+  margin-bottom: 0;
+}
+
+.row {
+  padding: 20px 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+u {
+  font-weight: 400;
+  text-decoration-style: wavy;
+}
+
+#map {
+  width: 500px;
+  height: 300px;
+}
+
+#navBar {
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: var(--bg);
+}
+
+#nav {
+  align-items: center;
+  color: white;
+  width: 100%;
+}
+
+#nav .show {
+  display: flex;
+}
+
+#nav>.item {
+  margin: 0px 1em;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 3em;
+  margin: 0.5em;
+  vertical-align: middle;
+  background: no-repeat 50%;
+  background-size: 100% 100%;
+  filter: invert(99%) sepia(31%) saturate(24%) hue-rotate(138deg) brightness(107%) contrast(100%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0) 50%, var(--bg) 100%);
+}
+
+.crate {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1140px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+img.header {
+  width: 50%;
+}
+
+#bg {
+  height: min(100vh, 400px);
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.title>* {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.title:hover {
+  text-decoration: none;
+}
+
+#content {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 55em;
+  padding: 0 .5em;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+  background-color: var(--fg);
+  color: var(--bg);
+  border-color: var(--csh-primary);
+  min-width: 10rem;
+  padding: .5rem 0;
+  margin: .125rem 0 0;
+  margin-top: 0.125rem;
+  font-size: .8125rem;
+  text-align: left;
+  list-style: none;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: .25rem;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: .25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212121;
+}
+
+#feet {
+  width: 100%;
+  background-color: var(--csh-tertiary);
+  color: white;
+  margin-top: 10px;
+}
+
+.feet-flex {
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0px;
+  width: min(100%, 600px);
+}
+
+#feet-quote {
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+.social>img {
+  height: 2rem;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(2deg) brightness(102%) contrast(104%);
+}
+
+@media only screen and (min-width: 992px) {
+  #homeGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "a b"
+      "a d"
+      "c e";
+  }
+
+  .navbar-toggler-icon {
+    display: none;
+  }
+
+  .card, .game-card {
+    margin: 0.5em;
+  }
+
+  #nav {
+    display: flex !important;
+    width: unset;
+  }
+}
