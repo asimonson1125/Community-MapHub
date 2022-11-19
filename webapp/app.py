@@ -15,10 +15,24 @@ def submission():
     name = flask.request.form['name']
     lat = flask.request.form['latitude']
     lng = flask.request.form['longitude']
-    submission = Vendors(name, str(lat), str(lng))
+    submission = Vendors(name, lat, lng)
     db.session.add(submission)
     db.session.commit()
     return flask.redirect('/')
+
+@app.route('/geojson')
+def makeGeoJson():
+    vs = Vendors.query.all()
+    features = []
+    for i in vs:
+        props = {}
+        info = {"geometry": {"coordinates": [i.longitude, i.latitude], "type": "Point"}, "properties": props, "type": "Feature"}
+        features.append(info)
+    out = {
+        "features": features,
+        "type": "FeatureCollection"
+    }
+    return out
 
 @app.errorhandler(Exception)
 def page404(e):
