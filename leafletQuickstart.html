@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Flask Leaflet Website</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
+    <style>
+      #map {
+        height: 300px;
+        width: 500px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <script>
+      let map, popup;
+      navigator.geolocation.getCurrentPosition(map_init)
+
+      function map_init(position){
+      let lat = position.coords.latitude;
+      let long = position.coords.longitude;
+      map = L.map("map").setView([lat, long], 13);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+      let marker = L.marker([lat, long]).addTo(map);
+      popup = L.popup();
+      map.on("click", onMapClick);
+    }
+
+      function onMapClick(e) {
+        popup
+          .setLatLng(e.latlng)
+          .setContent("You clicked the map at " + e.latlng.toString())
+          .openOn(map);
+      }
+
+    </script>
+  </body>
+</html>
