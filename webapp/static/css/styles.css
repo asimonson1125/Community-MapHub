@@ -173,6 +173,11 @@ img.header {
   padding: 0 .5em;
 }
 
+#viewDiv {
+  width: 100%;
+  height: 600px;
+}
+
 .dropdown-menu {
   position: absolute;
   top: 100%;

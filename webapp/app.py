@@ -26,6 +26,7 @@ def makeGeoJson():
     features = []
     for i in vs:
         props = {}
+        props['name'] = i.name
         info = {"geometry": {"coordinates": [i.longitude, i.latitude], "type": "Point"}, "properties": props, "type": "Feature"}
         features.append(info)
     out = {

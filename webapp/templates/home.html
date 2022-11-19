@@ -1,4 +1,43 @@
 {% extends "header.html" %}
 {% block content %}
-<h1>ArcGIS map goes here</h1>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.25/"></script>
+  <script>
+    require([
+      "esri/config",
+      "esri/WebMap",
+      "esri/views/MapView",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Legend"
+    ], function(esriConfig, WebMap, MapView, ScaleBar, Legend) {
+
+      esriConfig.apiKey = "AAPK0037696ae33d4f36a9b6ffec74aa1388fdIItByMyp7HGCGsGWo0Jljnt3WJp3TmGpMqVjoFOVfhSAakqEMampHJONafDwe3";
+
+      const webmap = new WebMap({
+        portalItem: {
+          id: "cadafc7e92dc42709916832b28301559"
+        }
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: webmap
+
+      });
+
+      const scalebar = new ScaleBar({
+        view: view
+      });
+
+      view.ui.add(scalebar, "bottom-left");
+
+      const legend = new Legend ({
+        view: view
+      });
+      view.ui.add(legend, "top-right");
+
+  });
+  </script>
+<div id="viewDiv"></div>
+
 {% endblock %}

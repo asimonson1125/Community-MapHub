@@ -3,18 +3,22 @@
 <div id="mapLoad">Map Loading...</div>
 <script>
   let map, popup;
+  console.log('pre-position getting');
   navigator.geolocation.getCurrentPosition(map_init);
-
+  console.log('post position getting')
   function map_init(position) {
+    console.log('start');
     let lat = position.coords.latitude;
     let long = position.coords.longitude;
     setFormLatLng(lat, long);
     map = L.map("map").setView([lat, long], 13);
+    console.log('view set');
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
+    console.log('tile layer');
     let marker = L.marker([lat, long]).addTo(map);
     popup = L.popup();
     map.on("click", onMapClick);
