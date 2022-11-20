@@ -34,7 +34,9 @@
       const legend = new Legend ({
         view: view
       });
-      view.ui.add(legend, "top-right");
+      if(document.body.scrollWidth > 900){
+        view.ui.add(legend, "top-right");
+      }
 
   });
   </script>
