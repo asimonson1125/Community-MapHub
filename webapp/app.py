@@ -29,8 +29,13 @@ def submission():
 def makeGeoJson():
     vs = Vendors.query.all()
     features = []
+    attrs = ['min', 'max', 'percentile', 'deployer', 'notes']
+    used = ['longitude', 'latitude', 'name']
     for i in vs:
         props = {}
+        for attr in dir(i):
+            if attr in attrs:
+                props[attr] = getattr(i, attr)
         props['name'] = i.name
         info = {"geometry": {"coordinates": [i.longitude, i.latitude], "type": "Point"}, "properties": props, "type": "Feature"}
         features.append(info)
