@@ -12,7 +12,7 @@ def formpage():
 
 @app.route('/edit')
 def editpage():
-    loggers = Vendors.query.all()
+    loggers = sorted(Vendors.query.all())
     return flask.render_template('edit.html', loggers=loggers)
 
 @app.route('/submit', methods = ['POST'])
@@ -28,7 +28,27 @@ def submission():
     submission = Vendors(name, lat, lng, mini, maxi, percentile, deployer, notes)
     db.session.add(submission)
     db.session.commit()
-    return flask.redirect('/')
+    return flask.redirect('/form')
+
+@app.route('/update/<id>', methods=['POST'])
+def edit(id):
+    logger = Vendors.query.get(id);
+    logger.longitude = verify(flask.request.form['longitude'])
+    logger.latitude = verify(flask.request.form['latitude'])
+    # logger.min = verify(flask.request.form['min'])
+    # logger.max = verify(flask.request.form['max'])
+    logger.percentile = verify(flask.request.form['percentile'])
+    logger.previousPercentile = verify(flask.request.form['previous'])
+    logger.deployer = "N/A"
+    logger.notes = verify(flask.request.form['notes'])
+    db.session.commit()
+    return flask.redirect('/edit')
+
+@app.route('/delete/<id>', methods=['POST'])
+def delete(id):
+    Vendors.query.filter(Vendors.id == id).delete()
+    db.session.commit()
+    return flask.redirect('/edit')
 
 @app.route('/data.geojson')
 def makeGeoJson():
@@ -62,7 +82,7 @@ def page404(e):
         return flask.render_template('error.html', error=eCode, message=message)
 
 def verify(thing):
-    if thing.replace(' ', '') == '':
+    if thing.replace(' ', '') == '' or thing == 'None':
         return None
     else:
         return thing

@@ -4,7 +4,64 @@
   <div id="editor">
     <p class="ids">#</p>
     <h2>Select a logger to edit!</h2>
+    <div class="flexMe">
+      <div id="map"></div>
+    </div>
+    <form action="/update" id="editf" method="POST">
+      <div class="flexMe">
+        <div class="inline">
+          <label for="longitude" class="smallLabel">Longitude:</label>
+          <input type="number" id="longitude" name="longitude" step="any" />
+        </div>
+        <div class="inline">
+          <label for="latitude" class="smallLabel">Latitude:</label>
+          <input type="number" id="latitude" name="latitude" step="any" />
+        </div>
+      </div>
+      <textarea id="notes" name="notes" maxlength="1000"></textarea>
+      <div class="flexMe">
+        <div class="inline">
+          <label for="percentile" class="smallLabel">Percentile:</label>
+          <input type="number" id="percentile" name="percentile" step="0.1" />
+        </div>
+        <div class="inline">
+          <label for="previous" class="smallLabel">Previous %:</label>
+          <input type="number" id="previous" name="previous" step="0.1" />
+        </div>
+      </div>
+      <div class="flexMe">
+        <div class="inline">
+          <label for="deployer" class="smallLabel">Deployer:</label>
+          <input type="text" id="deployer" name="deployer" />
+        </div>
+      </div>
+      <div class="flexMe">
+        <input id="submit" value="Submit" type="submit" />
+      </div>
+    </form>
+    <br />
+    <form action="/delete" id="deletef" method="POST">
+      <div class="flexMe">
+        <input id="delete" value="Delete" type="submit" />
+      </div>
+    </form>
   </div>
+  <script>
+    let map = L.map("map");
+    let marker;
+    function mapme(lat, long) {
+      map = map.setView([lat, long], 13);
+      console.log("view set");
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+      console.log("tile layer");
+      marker = L.marker([lat, long]).addTo(map);
+    }
+  </script>
+
   <table id="editTab">
     <tr>
       <th>ID</th>
@@ -21,7 +78,7 @@
 <script>
   loggers = []
   {% for i in loggers %}
-  loggers.push({'id': {{i.id}}, 'name': "{{i.name}}"});
+  loggers.push({'id': {{i.id}}, 'name': "{{i.name}}", 'lat': "{{i.latitude}}", 'lng': "{{i.longitude}}", 'notes': "{{i.notes}}", 'percentile': "{{i.percentile}}", 'previous': "{{i.previousPercentile}}", 'deployer': "{{i.deployer}}"});
   {% endfor %}
   function selector(id){
       let rows = document.querySelectorAll('#editTab tr');
@@ -32,6 +89,15 @@
       editor = document.getElementById('editor');
       editor.querySelector('.ids').textContent = loggers[id].id;
       editor.querySelector('h2').textContent = loggers[id].name;
+      mapme(loggers[id].lat, loggers[id].lng);
+      editor.querySelector('#latitude').value = loggers[id].lat;
+      editor.querySelector('#longitude').value = loggers[id].lng;
+      editor.querySelector('#notes').value = loggers[id].notes;
+      editor.querySelector('#percentile').value = loggers[id].percentile;
+      editor.querySelector('#previous').value = loggers[id].previous;
+      editor.querySelector('#deployer').value = loggers[id].deployer;
+      editor.querySelector('#editf').action = '/update/' + loggers[id].id;
+      editor.querySelector('#deletef').action = '/delete/' + loggers[id].id;
   }
 </script>
 {% endblock %}

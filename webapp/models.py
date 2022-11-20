@@ -32,7 +32,18 @@ class Vendors(db.Model):
         return {"id": self.id,
                 "name": self.name,
                 "latitude": self.latitude,
-                "longitude": self.longitude}
+                "longitude": self.longitude,
+                "min": self.min,
+                "max": self.max,
+                "percentile": self.percentile,
+                "deployer": self.deployer,
+                "notes": self.notes}
 
     def get_id(self):
         return self.id
+
+    def __lt__(self, other):
+        return self.id < other.id
+    
+    def __eq__(self, other):
+        return self.id == other.id
