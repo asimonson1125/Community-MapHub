@@ -153,6 +153,15 @@ img.header {
   justify-content: center;
 }
 
+.fsb{
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.active {
+  background:rgb(187, 87, 87);
+}
+
 input[type=number],
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -217,6 +226,15 @@ label {
 .dd > input:hover, .dd > input:active {
   background: rgba(255, 255, 255, .6);
   color: black;
+}
+
+#editTab td {
+  border: solid black 1px;
+}
+
+#editTab tr:hover {
+  background:rgb(187, 87, 87);
+  cursor: pointer;
 }
 
 .dropdown-menu {

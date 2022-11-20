@@ -11,6 +11,7 @@ class Vendors(db.Model):
     min = db.Column(db.REAL)
     max = db.Column(db.REAL)
     percentile = db.Column(db.REAL)
+    previousPercentile = db.Column(db.REAL)
     deployer = db.Column(db.String)
     notes = db.Column(db.String)
 

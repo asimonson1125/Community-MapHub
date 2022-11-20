@@ -10,16 +10,21 @@ def homepage():
 def formpage():
     return flask.render_template('form.html')
 
+@app.route('/edit')
+def editpage():
+    loggers = Vendors.query.all()
+    return flask.render_template('edit.html', loggers=loggers)
+
 @app.route('/submit', methods = ['POST'])
 def submission():
-    name = flask.request.form['name']
-    lat = flask.request.form['latitude']
-    lng = flask.request.form['longitude']
-    mini = flask.request.form['min']
-    maxi = flask.request.form['max']
-    percentile = flask.request.form['percentile']
+    name = verify(flask.request.form['name'])
+    lat = verify(flask.request.form['latitude'])
+    lng = verify(flask.request.form['longitude'])
+    mini = verify(flask.request.form['min'])
+    maxi = verify(flask.request.form['max'])
+    percentile = verify(flask.request.form['percentile'])
     deployer = "N/A"
-    notes = flask.request.form['notes']
+    notes = verify(flask.request.form['notes'])
     submission = Vendors(name, lat, lng, mini, maxi, percentile, deployer, notes)
     db.session.add(submission)
     db.session.commit()
@@ -29,7 +34,7 @@ def submission():
 def makeGeoJson():
     vs = Vendors.query.all()
     features = []
-    attrs = ['min', 'max', 'percentile', 'deployer', 'notes']
+    attrs = ['min', 'max', 'percentile', 'deployer', 'notes', 'previousPercentile']
     used = ['longitude', 'latitude', 'name']
     for i in vs:
         props = {}
@@ -55,6 +60,12 @@ def page404(e):
         eCode = e.code
     finally:
         return flask.render_template('error.html', error=eCode, message=message)
+
+def verify(thing):
+    if thing.replace(' ', '') == '':
+        return None
+    else:
+        return thing
 
 if __name__ == '__main__':
     app.run(host='localhost', debug=True)
