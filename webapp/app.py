@@ -25,7 +25,7 @@ def submission():
     db.session.commit()
     return flask.redirect('/')
 
-@app.route('/geojson')
+@app.route('/data.geojson')
 def makeGeoJson():
     vs = Vendors.query.all()
     features = []

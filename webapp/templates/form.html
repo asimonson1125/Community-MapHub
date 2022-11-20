@@ -44,40 +44,39 @@
 </script>
 <form action="/submit" method="POST">
   <div class="flexMe">
-    <label for="longitude">Longitude:</label>
-    <input type="number" id="longitude" name="longitude" step="any" />
-    <label for="latitude">Latitude:</label>
-    <input type="number" id="latitude" name="latitude" step="any" />
+    <div class="inline">
+      <label for="longitude" class="smallLabel" >Longitude:</label>
+      <input type="number" id="longitude" name="longitude" step="any" />
+    </div>
+    <div class="inline">
+      <label for="latitude" class="smallLabel" >Latitude:</label>
+      <input type="number" id="latitude" name="latitude" step="any" />
+    </div>
   </div>
   <br />
-  <label for="name">Name</label>
-  <input type="text" name="name" placeholder="barren wasteland" />
-  <label for="temp">Temperature (°C)</label>
-  <input
-    type="number"
-    name="percentile"
-    step="0.1"
-    placeholder="15.2°C"
-  />
+  <div class="inline">
+    <label for="name">Name</label>
+    <input type="text" name="name" placeholder="barren wasteland" />
+  </div>
+  <div class="inline">
+    <label for="temp">Temperature (°C)</label>
+    <input type="number" name="percentile" step="0.1" placeholder="15.2°C" />
+  </div>
   <br />
-  <input
-    type="number"
-    name="min"
-    step="0.1"
-    placeholder="12.9°C"
-  />
-  <input
-    type="number"
-    name="max"
-    step="0.1"
-    placeholder="21.3°C"
-  />
   <textarea
     name="notes"
     maxlength="1000"
     placeholder="Notes (max 1000 characters)"
   ></textarea>
   <br />
+  <div class="dropdown-toggle dd">Click for More Details...</div>
+  <div class="dropped hidden dd">
+    <label for="min">Mininmum Temperature (°C)</label>
+    <input type="number" name="min" step="0.1" placeholder="12.9°C" />
+    <br />
+    <label for="max">Maximum Temperature (°C)</label>
+    <input type="number" name="max" step="0.1" placeholder="21.3°C" />
+  </div>
   <input id="submit" value="Submit" type="submit" />
 </form>
 {% endblock %}

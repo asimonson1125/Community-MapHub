@@ -18,6 +18,10 @@ a {
   text-decoration: none;
 }
 
+p a {
+  color: white;
+}
+
 body {
   margin: 0px;
   background: var(--bg);
@@ -39,6 +43,11 @@ h1 {
   font-weight: 400;
   margin-top: 20px;
   line-height: 1.5;
+}
+
+p {
+  font-size: 0.75em;
+  margin: 0.2em;
 }
 
 #map {
@@ -68,6 +77,7 @@ h1 {
 
 #nav>.item {
   margin: 0px 1em;
+  border: solid black 1px;
 }
 
 .navbar-toggler-icon {
@@ -134,8 +144,8 @@ img.header {
 }
 
 #viewDiv {
-  width: 100%;
-  height: 600px;
+  width: 100vw;
+  height: calc(100vh - 4em);
 }
 
 .flexMe {
@@ -143,7 +153,7 @@ img.header {
   justify-content: center;
 }
 
-input[type=number], 
+input[type=number],
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -moz-appearance: textfield;
@@ -160,15 +170,53 @@ input[type=number]::-webkit-outer-spin-button {
   border: none;
   margin-left: 0.2em;
   transition: .3s;
+  max-width: 6em;
 }
 
 #latitude:hover, #longitude:hover, #latitude:active, #longitude:active {
-  background: rgba(255,255,255,.6);
+  background: rgba(255, 255, 255, .6);
 }
 
-textarea{
+textarea {
   width: min(90%, 400px);
   height: 100px;
+}
+
+label {
+  font-size: 1em;
+}
+
+.smallLabel {
+  font-size: 0.75em;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.dd{
+  background-color: #666666;
+  color: #eeeeee;
+  font-size: medium;
+  border: solid black 2px;
+  padding: 0.5em;
+}
+
+.dd > input {
+  background: none;
+  border: solid #eeeeee 1px;
+  color: #eeeeee;
+  transition: .3s;
+  padding: 0.25em;
+}
+
+.dd > input::placeholder{
+  color: white;
+}
+
+.dd > input:hover, .dd > input:active {
+  background: rgba(255, 255, 255, .6);
+  color: black;
 }
 
 .dropdown-menu {
@@ -211,7 +259,7 @@ textarea{
   display: flex;
   justify-content: space-around;
   padding: 10px 0px;
-  width: min(100%, 600px);
+  width: min(100%, 55em);
 }
 
 #feet-quote {
@@ -232,5 +280,9 @@ textarea{
   #nav {
     display: flex !important;
     width: unset;
+  }
+
+  #nav>.item {
+    border: none;
   }
 }
