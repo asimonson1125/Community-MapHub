@@ -55,8 +55,13 @@
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="anticontent">{% block anticontent %}{% endblock %}</div>
     <div id="feet">
+      <div class="feet-flex">
+        <a href="https://www.acwamaryland.org/" class="social"><img src="{{ url_for('static', filename='icons/globe.svg') }}"></a>
+        <a href="https://ritarcgis.maps.arcgis.com/home/item.html?id=cadafc7e92dc42709916832b28301559" class="social"><img src="{{ url_for('static', filename='icons/arcgis.svg') }}"></a>
+        <a href="https://github.com/asimonson1125/Community-MapHub" class="social"><img src="{{ url_for('static', filename='icons/github.svg') }}"></a>
+      </div>
       <div class="feet-flex" id="feet-quote">
-        <p>Site by Andrew Simonson for M&T Bank Meet and Hack 2, hosted on <a href='https://github.com/asimonson1125/Community-MapHub'>Github</a></p>
+        <p>Site by Andrew Simonson for M&T Bank Meet and Hack 2 (Nov. 2022)</p>
       </div>
     </div>
   </body>

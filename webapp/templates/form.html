@@ -6,12 +6,35 @@
 <script>
   let map, popup, marker;
   console.log("pre-position getting");
-  navigator.geolocation.getCurrentPosition(map_init);
+  let options = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: Infinity,
+  };
+  navigator.geolocation.getCurrentPosition(map_init, map_fail, options);
   console.log("post position getting");
   function map_init(position) {
     console.log("start");
     let lat = position.coords.latitude;
     let long = position.coords.longitude;
+    setFormLatLng(lat, long);
+    map = L.map("map").setView([lat, long], 13);
+    console.log("view set");
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+    console.log("tile layer");
+    marker = L.marker([lat, long]).addTo(map);
+    popup = L.popup();
+    map.on("click", onMapClick);
+    document.getElementById("mapLoad").style.display = "none";
+  }
+
+  function map_fail(){
+    let lat = 39.643150714557784;
+    let long = -77.72174263140187;
     setFormLatLng(lat, long);
     map = L.map("map").setView([lat, long], 13);
     console.log("view set");
@@ -35,7 +58,7 @@
         "Form coordinates set to " + e.latlng.lat + ", " + e.latlng.lng
       )
       .openOn(map);
-    marker.setLatLng(e.latlng)
+    marker.setLatLng(e.latlng);
   }
 
   function setFormLatLng(lat, lng) {
@@ -46,11 +69,11 @@
 <form action="/submit" method="POST">
   <div class="flexMe">
     <div class="inline">
-      <label for="longitude" class="smallLabel" >Longitude:</label>
+      <label for="longitude" class="smallLabel">Longitude:</label>
       <input type="number" id="longitude" name="longitude" step="any" />
     </div>
     <div class="inline">
-      <label for="latitude" class="smallLabel" >Latitude:</label>
+      <label for="latitude" class="smallLabel">Latitude:</label>
       <input type="number" id="latitude" name="latitude" step="any" />
     </div>
   </div>
@@ -64,11 +87,13 @@
     <input type="number" name="percentile" step="0.1" placeholder="15.2°C" />
   </div>
   <br />
-  <textarea
-    name="notes"
-    maxlength="1000"
-    placeholder="Notes (max 1000 characters)"
-  ></textarea>
+  <div>
+    <textarea
+      name="notes"
+      maxlength="1000"
+      placeholder="Notes (max 1000 characters)"
+    ></textarea>
+  </div>
   <br />
   <div class="dropdown-toggle dd">Click for More Details...</div>
   <div class="dropped hidden dd">
