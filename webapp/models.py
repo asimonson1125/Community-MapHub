@@ -6,13 +6,23 @@ class Vendors(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    longitude = db.Column(db.String, nullable=False)
-    latitude = db.Column(db.String, nullable=False)
+    longitude = db.Column(db.REAL, nullable=False)
+    latitude = db.Column(db.REAL, nullable=False)
+    min = db.Column(db.REAL)
+    max = db.Column(db.REAL)
+    percentile = db.Column(db.REAL)
+    deployer = db.Column(db.String)
+    notes = db.Column(db.String)
 
-    def __init__(self, name, latitude, longitude):
+    def __init__(self, name, latitude, longitude, min, max, percentile, deployer, notes):
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
+        self.min = min
+        self.max = max
+        self.percentile = percentile
+        self.deployer = deployer
+        self.notes = notes
 
     def __repr__(self):
         return '<name {}>'.format(self.name)

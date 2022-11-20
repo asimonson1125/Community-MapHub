@@ -15,7 +15,12 @@ def submission():
     name = flask.request.form['name']
     lat = flask.request.form['latitude']
     lng = flask.request.form['longitude']
-    submission = Vendors(name, lat, lng)
+    mini = flask.request.form['min']
+    maxi = flask.request.form['max']
+    percentile = flask.request.form['percentile']
+    deployer = "N/A"
+    notes = flask.request.form['notes']
+    submission = Vendors(name, lat, lng, mini, maxi, percentile, deployer, notes)
     db.session.add(submission)
     db.session.commit()
     return flask.redirect('/')

@@ -1,28 +1,30 @@
 {% extends "header.html" %} {% block content %}
-<div id="map"></div>
-<div id="mapLoad">Map Loading...</div>
+<div class="flexMe">
+  <div id="mapLoad">Map Loading...</div>
+  <div id="map"></div>
+</div>
 <script>
   let map, popup;
-  console.log('pre-position getting');
+  console.log("pre-position getting");
   navigator.geolocation.getCurrentPosition(map_init);
-  console.log('post position getting')
+  console.log("post position getting");
   function map_init(position) {
-    console.log('start');
+    console.log("start");
     let lat = position.coords.latitude;
     let long = position.coords.longitude;
     setFormLatLng(lat, long);
     map = L.map("map").setView([lat, long], 13);
-    console.log('view set');
+    console.log("view set");
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
-    console.log('tile layer');
+    console.log("tile layer");
     let marker = L.marker([lat, long]).addTo(map);
     popup = L.popup();
     map.on("click", onMapClick);
-    document.getElementById('mapLoad').style.display = 'none';
+    document.getElementById("mapLoad").style.display = "none";
   }
 
   function onMapClick(e) {
@@ -36,18 +38,46 @@
   }
 
   function setFormLatLng(lat, lng) {
-    document.getElementById('latitude').value = lat;
-    document.getElementById('longitude').value = lng;
+    document.getElementById("latitude").value = lat;
+    document.getElementById("longitude").value = lng;
   }
 </script>
 <form action="/submit" method="POST">
-    <div class="flexme">
-        <label for="latitude">Latitude:</label>
-        <input type="number" id="latitude" name="latitude" step="any">
-        <label for="longitude">Longitude:</label>
-        <input type="number" id="longitude" name="longitude" step="any">
-    </div>
-    <input type="text" name="name">
-    <input id="submit" value="Submit" type="submit">
+  <div class="flexMe">
+    <label for="longitude">Longitude:</label>
+    <input type="number" id="longitude" name="longitude" step="any" />
+    <label for="latitude">Latitude:</label>
+    <input type="number" id="latitude" name="latitude" step="any" />
+  </div>
+  <br />
+  <label for="name">Name</label>
+  <input type="text" name="name" placeholder="barren wasteland" />
+  <label for="temp">Temperature (°C)</label>
+  <input
+    type="number"
+    name="percentile"
+    step="0.1"
+    placeholder="15.2°C"
+  />
+  <br />
+  <input
+    type="number"
+    name="min"
+    step="0.1"
+    placeholder="12.9°C"
+  />
+  <input
+    type="number"
+    name="max"
+    step="0.1"
+    placeholder="21.3°C"
+  />
+  <textarea
+    name="notes"
+    maxlength="1000"
+    placeholder="Notes (max 1000 characters)"
+  ></textarea>
+  <br />
+  <input id="submit" value="Submit" type="submit" />
 </form>
 {% endblock %}
